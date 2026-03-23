@@ -77,7 +77,7 @@ ShowCopyMenu(*) {
             if (InStr(qa, "Copia Contenuto") && !(ext ~= "i)^(txt|md|csv|ini|log|js|html|css|py|ahk|bat|ps1|json|docx|doc|rtf|xlsx|xls)$"))
                 continue
                 
-            iconText := GetIconForAction(qa) " " qa
+            iconText := GetIconForAction(qa) " " Tr(qa)
             m.Add(iconText, ((act, *) => ExecuteAction(act)).Bind(qa))
             addedQA++
         }
@@ -86,135 +86,135 @@ ShowCopyMenu(*) {
         m.Add()
 
     mFmt := Menu()
-    mFmt.Add("Copia tra Virgolette", (*) => CopySpecific(quotesPath))
-    mFmt.Add("Copia separati da Virgola", (*) => CopySpecific(commaPath))
-    mFmt.Add("Copia con Slash ( / )", (*) => CopySpecific(slashPath))
-    mFmt.Add("Copia Relativo (senza Unità)", (*) => CopySpecific(relPath))
-    mFmt.Add("Copia come Web URI (file:///)", (*) => CopySpecific(uriPath))
-    mFmt.Add("Copia come Array JSON", (*) => CopySpecific(jsonArray))
-    mFmt.Add("Copia come Percorso WSL (/mnt/...)", (*) => CopySpecific(wslPath))
+    mFmt.Add(Tr("Copia tra Virgolette"), (*) => CopySpecific(quotesPath))
+    mFmt.Add(Tr("Copia separati da Virgola"), (*) => CopySpecific(commaPath))
+    mFmt.Add(Tr("Copia con Slash ( / )"), (*) => CopySpecific(slashPath))
+    mFmt.Add(Tr("Copia Relativo (senza Unità)"), (*) => CopySpecific(relPath))
+    mFmt.Add(Tr("Copia come Web URI (file:///)"), (*) => CopySpecific(uriPath))
+    mFmt.Add(Tr("Copia come Array JSON"), (*) => CopySpecific(jsonArray))
+    mFmt.Add(Tr("Copia come Percorso WSL (/mnt/...)"), (*) => CopySpecific(wslPath))
     if (!isMulti) {
         mFmt.Add()
-        mFmt.Add("Copia solo Nome File", (*) => CopySpecific(name))
-        mFmt.Add("Copia Cartella Padre", (*) => CopySpecific(dir))
+        mFmt.Add(Tr("Copia solo Nome File"), (*) => CopySpecific(name))
+        mFmt.Add(Tr("Copia Cartella Padre"), (*) => CopySpecific(dir))
     }
-    m.Add("✨ Formattazione Avanzata", mFmt)
+    m.Add(Tr("Formattazione Avanzata"), mFmt)
     
     if (!isMulti) {
         if (ext ~= "i)^(txt|md|csv|xml|ini|log|js|html|css|py|ahk|bat|ps1|json)$") {
             mText := Menu()
-            mText.Add("📝 Copia Contenuto (Solo Testo)", (*) => CopyFileContent(SelectedPath))
+            mText.Add(Tr("📝 Copia Contenuto (Solo Testo)"), (*) => CopyFileContent(SelectedPath))
             if (ext = "json") {
                 mText.Add()
-                mText.Add("✨ Formatta JSON (Pretty Print)", (*) => FormatJsonAction(SelectedPath, false))
-                mText.Add("🗜️ Minifica JSON", (*) => FormatJsonAction(SelectedPath, true))
+                mText.Add(Tr("✨ Formatta JSON (Pretty Print)"), (*) => FormatJsonAction(SelectedPath, false))
+                mText.Add(Tr("🗜️ Minifica JSON"), (*) => FormatJsonAction(SelectedPath, true))
             }
-            m.Add("📄 Testo & Codice", mText)
+            m.Add(Tr("📄 Testo & Codice"), mText)
         }
         
         if (ext ~= "i)^(docx|doc|rtf|xlsx|xls)$") {
             mOffice := Menu()
             appT := (ext ~= "i)^(xlsx|xls)$") ? "Excel.Application" : "Word.Application"
-            mOffice.Add("📝 Copia Contenuto (Mantiene Formattazione)", (*) => CopyOfficeContent(SelectedPath, appT, true))
-            mOffice.Add("📝 Copia Contenuto (Solo Testo Grezzo)", (*) => CopyOfficeContent(SelectedPath, appT, false))
+            mOffice.Add(Tr("📝 Copia Contenuto (Mantiene Formattazione)"), (*) => CopyOfficeContent(SelectedPath, appT, true))
+            mOffice.Add(Tr("📝 Copia Contenuto (Solo Testo Grezzo)"), (*) => CopyOfficeContent(SelectedPath, appT, false))
             mOffice.Add()
-            mOffice.Add("📄 Esporta in PDF (Silenzioso)", (*) => OfficeToPdfAction(SelectedPath, appT))
-            m.Add("📄 Strumenti Office", mOffice)
+            mOffice.Add(Tr("📄 Esporta in PDF (Silenzioso)"), (*) => OfficeToPdfAction(SelectedPath, appT))
+            m.Add(Tr("📄 Strumenti Office"), mOffice)
         }
         
         if (ext ~= "i)^(csv|log)$") {
             mData := Menu()
-            mData.Add("🔍 Anteprima Dati (Head)", (*) => DataPreviewAction(SelectedPath))
+            mData.Add(Tr("🔍 Anteprima Dati (Head)"), (*) => DataPreviewAction(SelectedPath))
             if (ext = "csv")
-                mData.Add("🔄 Converti in JSON", (*) => CsvToJsonAction(SelectedPath))
-            m.Add("📊 Dati & File Log", mData)
+                mData.Add(Tr("🔄 Converti in JSON"), (*) => CsvToJsonAction(SelectedPath))
+            m.Add(Tr("📊 Dati & File Log"), mData)
         }
         
         if (ext ~= "i)^(txt|md|docx|doc|rtf|log|ini|json|csv)$") {
             mEd := Menu()
-            mEd.Add("📈 Statistiche Testo (Parole/Caratteri)", (*) => TextStatsAction(SelectedPath))
-            mEd.Add("🌐 Traduci in Google Translate", (*) => TranslateTextAction(SelectedPath))
-            mEd.Add("🔗 Copia come Link Markdown", (*) => CopyMarkdownLink(SelectedPath))
-            m.Add("✍️ Editoriale", mEd)
+            mEd.Add(Tr("📈 Statistiche Testo (Parole/Caratteri)"), (*) => TextStatsAction(SelectedPath))
+            mEd.Add(Tr("🌐 Traduci in Google Translate"), (*) => TranslateTextAction(SelectedPath))
+            mEd.Add(Tr("🔗 Copia come Link Markdown"), (*) => CopyMarkdownLink(SelectedPath))
+            m.Add(Tr("✍️ Editoriale"), mEd)
         }
         
         if (ext ~= "i)^(png|jpg|jpeg|webp|bmp|gif|svg)$") {
             mImg := Menu()
             if (ext = "svg") {
-                mImg.Add("✂️ Copia SVG Minimizzato", (*) => SvgExtractorAction(SelectedPath))
+                mImg.Add(Tr("✂️ Copia SVG Minimizzato"), (*) => SvgExtractorAction(SelectedPath))
             } else {
-                mImg.Add("🔍 Estrai Testo (OCR)", (*) => ExtractOcrText(SelectedPath))
-                mImg.Add("📐 Ridimensiona (Smart Resize)...", (*) => ImageResizerAction(SelectedPath))
+                mImg.Add(Tr("🔍 Estrai Testo (OCR)"), (*) => ExtractOcrText(SelectedPath))
+                mImg.Add(Tr("📐 Ridimensiona (Smart Resize)..."), (*) => ImageResizerAction(SelectedPath))
                 if (ext = "png")
-                    mImg.Add("🖼️ Genera Icona (.ico)", (*) => GenerateIcoAction(SelectedPath))
+                    mImg.Add(Tr("🖼️ Genera Icona (.ico)"), (*) => GenerateIcoAction(SelectedPath))
                 mImg.Add()
                 if (ext != "png")
-                    mImg.Add("🔄 Converti in PNG", (*) => ConvertImageAction(SelectedPath, "png"))
+                    mImg.Add(Tr("🔄 Converti in PNG"), (*) => ConvertImageAction(SelectedPath, "png"))
                 if (ext != "jpg" && ext != "jpeg")
-                    mImg.Add("🔄 Converti in JPG", (*) => ConvertImageAction(SelectedPath, "jpg"))
+                    mImg.Add(Tr("🔄 Converti in JPG"), (*) => ConvertImageAction(SelectedPath, "jpg"))
                 if (ext != "bmp")
-                    mImg.Add("🔄 Converti in BMP", (*) => ConvertImageAction(SelectedPath, "bmp"))
+                    mImg.Add(Tr("🔄 Converti in BMP"), (*) => ConvertImageAction(SelectedPath, "bmp"))
                 mImg.Add()
-                mImg.Add("🎨 Estrai Palette (Colori Dominanti)", (*) => ExtractPaletteAction(SelectedPath))
+                mImg.Add(Tr("🎨 Estrai Palette (Colori Dominanti)"), (*) => ExtractPaletteAction(SelectedPath))
             }
-            m.Add("📸 Immagini & Grafica", mImg)
+            m.Add(Tr("📸 Immagini & Grafica"), mImg)
         }
         
         if (!isDir) {
             mDev := Menu()
-            mDev.Add("🔐 Calcola Checksum (MD5/SHA-256)", (*) => CalculateChecksumAction(SelectedPath))
-            mDev.Add("🌐 URL Encode / Decode...", (*) => UrlEncodeDecodeAction(SelectedPath))
-            mDev.Add("️ Copia come Base64", (*) => CopyBase64Action(SelectedPath))
-            mDev.Add("🔑 JWT Decoder (Da Appunti)", (*) => JwtDecoderAction())
+            mDev.Add(Tr("🔐 Calcola Checksum (MD5/SHA-256)"), (*) => CalculateChecksumAction(SelectedPath))
+            mDev.Add(Tr("🌐 URL Encode / Decode..."), (*) => UrlEncodeDecodeAction(SelectedPath))
+            mDev.Add(Tr("️ Copia come Base64"), (*) => CopyBase64Action(SelectedPath))
+            mDev.Add(Tr("🔑 JWT Decoder (Da Appunti)"), (*) => JwtDecoderAction())
             if (ext ~= "i)^(txt|md|csv|ini|log|js|html|css|py|ahk|bat|ps1|json)$")
-                mDev.Add("🧪 Test RegEx Rapido...", (*) => RegexTesterAction(SelectedPath))
-            mDev.Add("📸 Copia Metadati (JSON)", (*) => CopyMetadataAction(SelectedPath))
-            mDev.Add("🧬 Estrai Stringhe (Text)", (*) => ExtractStringsAction(SelectedPath))
-            mDev.Add("🗜️ Aumenta Peso File (Pumper)...", (*) => FilePumperAction(SelectedPath))
+                mDev.Add(Tr("🧪 Test RegEx Rapido..."), (*) => RegexTesterAction(SelectedPath))
+            mDev.Add(Tr("📸 Copia Metadati (JSON)"), (*) => CopyMetadataAction(SelectedPath))
+            mDev.Add(Tr("🧬 Estrai Stringhe (Text)"), (*) => ExtractStringsAction(SelectedPath))
+            mDev.Add(Tr("🗜️ Aumenta Peso File (Pumper)..."), (*) => FilePumperAction(SelectedPath))
             mDev.Add()
-            mDev.Add("🗑️ Distruzione Sicura", (*) => SecureShredAction(SelectedPath))
-            m.Add("🛠️ Sviluppatore & Sicurezza", mDev)
+            mDev.Add(Tr("🗑️ Distruzione Sicura"), (*) => SecureShredAction(SelectedPath))
+            m.Add(Tr("🛠️ Sviluppatore & Sicurezza"), mDev)
         } else {
             mDev := Menu()
-            mDev.Add("🧩 Crea File da Appunti (Decodifica Base64)", (*) => PasteBase64Action(SelectedPath))
-            mDev.Add("🗜️ Crea File Dummy (Zero Fill)...", (*) => CreateDummyFileAction(SelectedPath))
-            mDev.Add("🔗 Crea Symlink (Target da Appunti)", (*) => PasteSymlinkAction(SelectedPath))
-            m.Add("🛠️ Sviluppatore", mDev)
+            mDev.Add(Tr("🧩 Crea File da Appunti (Decodifica Base64)"), (*) => PasteBase64Action(SelectedPath))
+            mDev.Add(Tr("🗜️ Crea File Dummy (Zero Fill)..."), (*) => CreateDummyFileAction(SelectedPath))
+            mDev.Add(Tr("🔗 Crea Symlink (Target da Appunti)"), (*) => PasteSymlinkAction(SelectedPath))
+            m.Add(Tr("🛠️ Sviluppatore"), mDev)
             
             mGit := Menu()
-            mGit.Add("⬇️ Git Pull", (*) => GitPullAction(SelectedPath))
-            mGit.Add("✅ Git Add & Commit...", (*) => GitCommitAction(SelectedPath))
+            mGit.Add(Tr("⬇️ Git Pull"), (*) => GitPullAction(SelectedPath))
+            mGit.Add(Tr("✅ Git Add & Commit..."), (*) => GitCommitAction(SelectedPath))
             mProgDir := Menu()
-            mProgDir.Add("📄 Crea File da Snippet...", (*) => CreateSnippetAction(SelectedPath))
-            mProgDir.Add("Git Actions", mGit)
-            m.Add("💻 Programmazione", mProgDir)
+            mProgDir.Add(Tr("📄 Crea File da Snippet..."), (*) => CreateSnippetAction(SelectedPath))
+            mProgDir.Add(Tr("Git Actions"), mGit)
+            m.Add(Tr("💻 Programmazione"), mProgDir)
             mNote := Menu()
-            mNote.Add("📝 Incolla Appunti Veloci (.txt)", (*) => QuickNotesAction(SelectedPath))
-            m.Add("✍️ Editoriale", mNote)
+            mNote.Add(Tr("📝 Incolla Appunti Veloci (.txt)"), (*) => QuickNotesAction(SelectedPath))
+            m.Add(Tr("✍️ Editoriale"), mNote)
         }
         
         mAct := Menu()
         if (ext ~= "i)^(exe|bat|cmd|py|ps1|ahk)$")
-            mAct.Add("⚙️ Esegui con Parametri", (*) => RunWithArgsAction(SelectedPath))
-        mAct.Add("⏱️ Aggiorna Data Modifica (Touch)", (*) => TouchAction(SelectedPath))
-        mAct.Add("🕰️ Modifica Attributi e Date...", (*) => ShowAttributesEditor(SelectedPath))
-        mAct.Add("✏️ Rinomina Elemento...", (*) => RenameFileAction())
-        mAct.Add("🔗 Crea Collegamento...", (*) => CreateShortcutAction(SelectedPath))
-        mAct.Add("🖥️ Apri in PowerShell", (*) => Run("powershell.exe -NoExit -Command cd '" dir "'"))
-        mAct.Add(" Apri in VS Code", (*) => OpenInVSCode(SelectedPath))
-        m.Add("🔧 Gestione & Azioni", mAct)
+            mAct.Add(Tr("⚙️ Esegui con Parametri"), (*) => RunWithArgsAction(SelectedPath))
+        mAct.Add(Tr("⏱️ Aggiorna Data Modifica (Touch)"), (*) => TouchAction(SelectedPath))
+        mAct.Add(Tr("🕰️ Modifica Attributi e Date..."), (*) => ShowAttributesEditor(SelectedPath))
+        mAct.Add(Tr("✏️ Rinomina Elemento..."), (*) => RenameFileAction())
+        mAct.Add(Tr("🔗 Crea Collegamento..."), (*) => CreateShortcutAction(SelectedPath))
+        mAct.Add(Tr("🖥️ Apri in PowerShell"), (*) => Run("powershell.exe -NoExit -Command cd '" dir "'"))
+        mAct.Add(Tr(" Apri in VS Code"), (*) => OpenInVSCode(SelectedPath))
+        m.Add(Tr("🔧 Gestione & Azioni"), mAct)
     } else {
         mAct := Menu()
-        mAct.Add("🗃️ Rinomina Multipla...", (*) => BulkRenameAction(SelectedPath))
-        mAct.Add("� Fast Merge (Unione Dati/Testi)", (*) => FastMergeAction(SelectedPath))
-        mAct.Add("🔗 Crea Collegamenti...", (*) => CreateShortcutAction(SelectedPath))
-        mAct.Add("🖥️ Apri in PowerShell", (*) => Run("powershell.exe -NoExit -Command cd '" dir "'"))
-        m.Add("� Gestione & Azioni", mAct)
+        mAct.Add(Tr("🗃️ Rinomina Multipla..."), (*) => BulkRenameAction(SelectedPath))
+        mAct.Add(Tr(" Fast Merge (Unione Dati/Testi)"), (*) => FastMergeAction(SelectedPath))
+        mAct.Add(Tr("🔗 Crea Collegamenti..."), (*) => CreateShortcutAction(SelectedPath))
+        mAct.Add(Tr("🖥️ Apri in PowerShell"), (*) => Run("powershell.exe -NoExit -Command cd '" dir "'"))
+        m.Add(Tr(" Gestione & Azioni"), mAct)
         
         mZip := Menu()
-        mZip.Add("🗜️ Comprimi in archivi separati (.zip)", (*) => SuperZipAction(SelectedPath, "individual"))
-        mZip.Add("🗜️ Comprimi in un unico archivio (.zip)", (*) => SuperZipAction(SelectedPath, "single"))
-        m.Add("📦 Super Zip", mZip)
+        mZip.Add(Tr("🗜️ Comprimi in archivi separati (.zip)"), (*) => SuperZipAction(SelectedPath, "individual"))
+        mZip.Add(Tr("🗜️ Comprimi in un unico archivio (.zip)"), (*) => SuperZipAction(SelectedPath, "single"))
+        m.Add(Tr("📦 Super Zip"), mZip)
         m.Add()
 
         mFiltroPath := Menu()
@@ -249,8 +249,8 @@ ShowCopyMenu(*) {
                 for lp in list
                     joined .= lp "`r`n"
                 joined := RTrim(joined, "`r`n")
-                mFiltroPath.Add("Tutti in " cat " (" list.Length ")", ((text, *) => CopySpecific(text)).Bind(joined))
-                mFiltroFile.Add("Tutti in " cat " (" list.Length ")", ((text, *) => CopyAsFiles(text)).Bind(joined))
+            mFiltroPath.Add(Tr("Tutti in") " " Tr(cat) " (" list.Length ")", ((text, *) => CopySpecific(text)).Bind(joined))
+            mFiltroFile.Add(Tr("Tutti in") " " Tr(cat) " (" list.Length ")", ((text, *) => CopyAsFiles(text)).Bind(joined))
             }
         }
         if (hasItems) {
@@ -264,12 +264,12 @@ ShowCopyMenu(*) {
             for lp in list
                 joined .= lp "`r`n"
             joined := RTrim(joined, "`r`n")
-            mFiltroPath.Add("Solo i ." ext " (" list.Length ")", ((text, *) => CopySpecific(text)).Bind(joined))
-            mFiltroFile.Add("Solo i ." ext " (" list.Length ")", ((text, *) => CopyAsFiles(text)).Bind(joined))
+            mFiltroPath.Add(Tr("Solo i .") ext " (" list.Length ")", ((text, *) => CopySpecific(text)).Bind(joined))
+            mFiltroFile.Add(Tr("Solo i .") ext " (" list.Length ")", ((text, *) => CopyAsFiles(text)).Bind(joined))
         }
         if (hasItems || hasExts) {
-            m.Add("🔍 Filtra e Copia Percorsi...", mFiltroPath)
-            m.Add("📁 Filtra e Copia FILE reali...", mFiltroFile)
+            m.Add(Tr("🔍 Filtra e Copia Percorsi..."), mFiltroPath)
+            m.Add(Tr("📁 Filtra e Copia FILE reali..."), mFiltroFile)
         }
     }
     
@@ -280,12 +280,11 @@ ShowCopyMenu(*) {
             disp := StrLen(p) > 40 ? SubStr(p, 1, 37) "..." : p
             mRec.Add(disp, ((path, *) => CopySpecific(path)).Bind(p))
         }
-        m.Add("Recenti (History)", mRec)
+        m.Add(Tr("Recenti (History)"), mRec)
     }
     
     m.Add() ; Separatore
-    m.Add("⚙️ Impostazioni...", ShowSettings)
-    m.Add("ℹ️ Informazioni su FoxPath", (*) => MsgBox("FoxPath v2.1.0`n`nIl tuo assistente visivo per la produttività su Windows.`n`n© 2026 Pedro Sanchez. Tutti i diritti riservati.", "Informazioni", "Iconi"))
+    m.Add(Tr("⚙️ Impostazioni..."), ShowSettings)
     
     RemoveEventHook()
     m.Show()

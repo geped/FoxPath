@@ -14,7 +14,7 @@ ShowSettings(*) {
         return
     }
     
-    SettingsGuiObj := Gui("+AlwaysOnTop -MinimizeBox -MaximizeBox", "Impostazioni - FoxPath")
+    SettingsGuiObj := Gui("+AlwaysOnTop -MinimizeBox -MaximizeBox", Tr("SettingsTitle"))
     SettingsGuiObj.BackColor := "FFFFFF"
     SettingsGuiObj.MarginX := 15
     SettingsGuiObj.MarginY := 15
@@ -23,126 +23,115 @@ ShowSettings(*) {
     
     ; Titolo Finestra
     SettingsGuiObj.SetFont("s14 bold c111827", "Segoe UI")
-    SettingsGuiObj.Add("Text", "w280 BackgroundTrans", "Impostazioni FoxPath")
+    SettingsGuiObj.Add("Text", "w280 BackgroundTrans", Tr("SettingsTitle"))
     SettingsGuiObj.SetFont("s9 norm c333333", "Segoe UI")
     SettingsGuiObj.Add("Text", "w280 y+10 h1 0x10") ; Linea separatrice
     
-    tabs := SettingsGuiObj.Add("Tab3", "w290 y+10", ["🎨 Aspetto", "⚙️ Comportamento", "🛠️ Strumenti"])
+    tabs := SettingsGuiObj.Add("Tab3", "w290 y+10", [Tr("TabAppearance"), Tr("TabBehavior"), Tr("TabTools")])
     
     ; --- TAB 1: ASPETTO E COLORI ---
     tabs.UseTab(1)
     SettingsGuiObj.SetFont("s10 bold c111827")
-    SettingsGuiObj.Add("Text", "y+15", "Personalizzazione Visiva")
+    SettingsGuiObj.Add("Text", "y+15", Tr("VisualCust"))
     SettingsGuiObj.SetFont("s9 norm c333333")
     
-    SettingsGuiObj.Add("Text", "w260 y+10 vTxtTrans", "Trasparenza (" SettingTransparency "/255):")
+    SettingsGuiObj.Add("Text", "w260 y+10 vTxtTrans", Tr("Transp", SettingTransparency))
     slTrans := SettingsGuiObj.Add("Slider", "w260 vTrans Range50-255 ToolTip", SettingTransparency)
     slTrans.OnEvent("Change", (Ctrl, *) => (
         UpdateTransparency(Ctrl.Value),
-        SettingsGuiObj["TxtTrans"].Value := "Trasparenza (" Ctrl.Value "/255):"
+        SettingsGuiObj["TxtTrans"].Value := Tr("Transp", Ctrl.Value)
     ))
     
-    SettingsGuiObj.Add("Text", "w260 y+10 vTxtW", "Larghezza Finestra (" SettingWidth "px):")
+    SettingsGuiObj.Add("Text", "w260 y+10 vTxtW", Tr("WinWidth", SettingWidth))
     slW := SettingsGuiObj.Add("Slider", "w260 vW Range100-400 ToolTip", SettingWidth)
     slW.OnEvent("Change", (Ctrl, *) => (
         LiveResize(Ctrl.Value, ""),
-        SettingsGuiObj["TxtW"].Value := "Larghezza Finestra (" Ctrl.Value "px):"
+        SettingsGuiObj["TxtW"].Value := Tr("WinWidth", Ctrl.Value)
     ))
     
-    SettingsGuiObj.Add("Text", "w260 y+10 vTxtH", "Altezza Pannello Info (" SettingInfoHeight "px):")
+    SettingsGuiObj.Add("Text", "w260 y+10 vTxtH", Tr("PanelHeight", SettingInfoHeight))
     slH := SettingsGuiObj.Add("Slider", "w260 vH Range50-400 ToolTip", SettingInfoHeight)
     slH.OnEvent("Change", (Ctrl, *) => (
         LiveResize("", Ctrl.Value),
-        SettingsGuiObj["TxtH"].Value := "Altezza Pannello Info (" Ctrl.Value "px):"
+        SettingsGuiObj["TxtH"].Value := Tr("PanelHeight", Ctrl.Value)
     ))
     
-    SettingsGuiObj.Add("Text", "w120 y+15 section", "Colore Bottone:")
+    SettingsGuiObj.Add("Text", "w120 y+15 section", Tr("BtnColor"))
     edtBtn := SettingsGuiObj.Add("Edit", "w60 ys-3 vBtnColor Center", Format("0x{:08X}", SettingBtnColor))
-    btnBtnColor := SettingsGuiObj.Add("Button", "ys-4 w60", "Palette")
+    btnBtnColor := SettingsGuiObj.Add("Button", "ys-4 w60", Tr("Palette"))
     btnBtnColor.OnEvent("Click", (*) => ChooseColor(edtBtn, SettingBtnColor))
 
-    SettingsGuiObj.Add("Text", "w120 xs y+10 section", "Colore Testo:")
+    SettingsGuiObj.Add("Text", "w120 xs y+10 section", Tr("TxtColor"))
     edtTxt := SettingsGuiObj.Add("Edit", "w60 ys-3 vTxtColor Center", Format("0x{:08X}", SettingTextColor))
-    btnTxtColor := SettingsGuiObj.Add("Button", "ys-4 w60", "Palette")
+    btnTxtColor := SettingsGuiObj.Add("Button", "ys-4 w60", Tr("Palette"))
     btnTxtColor.OnEvent("Click", (*) => ChooseColor(edtTxt, SettingTextColor))
     SettingsGuiObj.Add("Text", "h5", "") ; Spazio morbido
     
     ; --- TAB 2: COMPORTAMENTO ---
     tabs.UseTab(2)
     SettingsGuiObj.SetFont("s10 bold c111827")
-    SettingsGuiObj.Add("Text", "y+15", "Opzioni di Interazione")
+    SettingsGuiObj.Add("Text", "y+15", Tr("InteractOpt"))
     SettingsGuiObj.SetFont("s9 norm c333333")
     
-    SettingsGuiObj.Add("CheckBox", "w260 y+10 vMulti " (SettingMultiSelect ? "Checked" : ""), "Abilita Selezione Multipla")
-    SettingsGuiObj.Add("CheckBox", "w260 y+10 vEditMode " (SettingEditMode ? "Checked" : ""), "Sblocca Ridimensionamento Manuale")
-    SettingsGuiObj.Add("CheckBox", "w260 y+10 vSnd " (SettingPlaySound ? "Checked" : ""), "Riproduci Effetto Sonoro alla Copia")
-    SettingsGuiObj.Add("CheckBox", "w260 y+10 vAutoH " (SettingAutoHide ? "Checked" : ""), "Nascondi automaticamente la Volpe")
+    SettingsGuiObj.Add("CheckBox", "w260 y+10 vMulti " (SettingMultiSelect ? "Checked" : ""), Tr("MultiSel"))
+    SettingsGuiObj.Add("CheckBox", "w260 y+10 vEditMode " (SettingEditMode ? "Checked" : ""), Tr("UnlockResize"))
+    SettingsGuiObj.Add("CheckBox", "w260 y+10 vSnd " (SettingPlaySound ? "Checked" : ""), Tr("PlaySound"))
+    SettingsGuiObj.Add("CheckBox", "w260 y+10 vAutoH " (SettingAutoHide ? "Checked" : ""), Tr("AutoHide"))
     hasStartup := FileExist(A_Startup "\FoxPath.lnk")
-    SettingsGuiObj.Add("CheckBox", "w260 y+10 vStartup " (hasStartup ? "Checked" : ""), "Avvia in automatico con Windows")
+    SettingsGuiObj.Add("CheckBox", "w260 y+10 vStartup " (hasStartup ? "Checked" : ""), Tr("AutoStart"))
     
-    SettingsGuiObj.Add("Text", "w260 y+15", "Scorciatoia Tastiera Globale:")
+    SettingsGuiObj.Add("Text", "w260 y+15", Tr("GlobalShortcut"))
     SettingsGuiObj.SetFont("s9 c71717A")
     SettingsGuiObj.Add("Text", "w260 y+2", "(es. ^!f per Ctrl+Alt+F, # per Win, + per Shift)")
     SettingsGuiObj.SetFont("s9 norm c333333")
     SettingsGuiObj.Add("Edit", "w120 y+5 vHotkey Center", SettingHotkey)
+    
+    SettingsGuiObj.Add("Text", "w260 y+15", Tr("SettingsLang"))
+    ddlIdxLang := SettingLang = "EN" ? 1 : (SettingLang = "IT" ? 2 : 3)
+    SettingsGuiObj.Add("DropDownList", "w120 y+5 vSettingsLang Choose" ddlIdxLang, ["EN", "IT", "ES"])
     SettingsGuiObj.Add("Text", "h5", "") ; Spazio morbido
     
     ; --- TAB 3: AZIONI E STRUMENTI ---
     tabs.UseTab(3)
-    actionsList := [
+    
+    baseActionsList := [
         "Nessuno",
         "📋 ─── LIBRERIA COPIA E FORMATTAZIONE ───",
-        "Copia Percorso Normale", 
-        "Copia come File Reali", 
-        "Copia tra Virgolette", 
-        "Copia come Link Markdown",
+        "Copia Percorso Normale", "Copia come File Reali", "Copia tra Virgolette", "Copia come Link Markdown",
         "🖥️ ─── LIBRERIA PROGRAMMI E SISTEMA ───",
-        "Apri in VS Code", 
-        "Apri in PowerShell", 
-        "Rinomina Elemento", 
-        "Formatta JSON",
-        "Minifica JSON",
+        "Apri in VS Code", "Apri in PowerShell", "Rinomina Elemento", "Formatta JSON", "Minifica JSON",
         "✍️ ─── LIBRERIA ESTRAZIONE E TESTO ───",
-        "Copia Contenuto (Solo Testo)",
-        "Copia Contenuto (Mantiene Formattazione)",
-        "Statistiche Testo",
-        "Traduci in Google Translate",
-        "Incolla Appunti Veloci",
+        "Copia Contenuto (Solo Testo)", "Copia Contenuto (Mantiene Formattazione)", "Statistiche Testo", "Traduci in Google Translate", "Incolla Appunti Veloci",
         "📸 ─── LIBRERIA IMMAGINI E GRAFICA ───",
-        "Estrai Testo (OCR)",
-        "Converti in PNG",
-        "Converti in JPG",
-        "Converti in BMP",
-        "Estrai Palette Colori",
+        "Estrai Testo (OCR)", "Converti in PNG", "Converti in JPG", "Converti in BMP", "Estrai Palette Colori",
         "🛠️ ─── LIBRERIA UTILITÀ EXTRA ───",
-        "Touch (Aggiorna Data)", 
-        "Distruzione Sicura",
-        "Crea Collegamento",
-        "Super Zip (Unico)",
-        "Super Zip (Separati)",
-        "Svuota Cestino"
+        "Touch (Aggiorna Data)", "Distruzione Sicura", "Crea Collegamento", "Super Zip (Unico)", "Super Zip (Separati)", "Svuota Cestino"
     ]
     
+    translatedActionsList := []
+    for act in baseActionsList
+        translatedActionsList.Push(Tr(act))
+    
     SettingsGuiObj.SetFont("s10 bold c111827")
-    SettingsGuiObj.Add("Text", "y+15", "Strumento Principale")
+    SettingsGuiObj.Add("Text", "y+15", Tr("PrimaryTool"))
     SettingsGuiObj.SetFont("s9 norm c333333")
-    SettingsGuiObj.Add("Text", "w260 y+5", "Azione predefinita al Clic Sinistro:")
+    SettingsGuiObj.Add("Text", "w260 y+5", Tr("PrimaryAction"))
     
     currentPrimary := SettingFloatingActions.Length > 0 ? SettingFloatingActions[1] : "Copia Percorso Normale"
     chooseIdx := 3
-    for i, act in actionsList {
+    for i, act in baseActionsList {
         if (act = currentPrimary) {
             chooseIdx := i
             break
         }
     }
-    ddlPrimary := SettingsGuiObj.Add("DropDownList", "w260 y+5 vPrimaryAction Choose" chooseIdx, actionsList)
-    ddlPrimary.OnEvent("Change", (Ctrl, *) => CheckDropdownSelection(Ctrl, 3))
+    ddlPrimary := SettingsGuiObj.Add("DropDownList", "w260 y+5 vPrimaryAction AltSubmit Choose" chooseIdx, translatedActionsList)
+    ddlPrimary.OnEvent("Change", (Ctrl, *) => CheckDropdownSelection(Ctrl, 3, translatedActionsList))
     
     SettingsGuiObj.Add("Text", "w260 y+10 h1 0x10") ; linea separatrice
     
     SettingsGuiObj.SetFont("s10 bold c111827")
-    SettingsGuiObj.Add("Text", "w260 y+10", "Menu Rapido (Tasto Destro)")
+    SettingsGuiObj.Add("Text", "w260 y+10", Tr("QuickMenu"))
     SettingsGuiObj.SetFont("s9 norm c333333")
     
     SettingsGuiObj.Add("Text", "section h0 w0", "") ; Punto di ancoraggio per la griglia
@@ -150,16 +139,16 @@ ShowSettings(*) {
         idx := A_Index
         currQA := SettingQuickActions.Length >= idx ? SettingQuickActions[idx] : "Nessuno"
         chooseIdx := 1
-        for i, act in actionsList {
+        for i, act in baseActionsList {
             if (act = currQA) {
                 chooseIdx := i
                 break
             }
         }
         yPos := idx = 1 ? "ys+5" : "y+5"
-        SettingsGuiObj.Add("Text", "w40 xs " yPos " +0x200", "Slot " idx ":")
-        ddl := SettingsGuiObj.Add("DropDownList", "w210 x+10 yp-2 vQA" idx " Choose" chooseIdx, actionsList)
-        ddl.OnEvent("Change", (Ctrl, *) => CheckDropdownSelection(Ctrl, 1))
+        SettingsGuiObj.Add("Text", "w40 xs " yPos " +0x200", Tr("Slot", idx))
+        ddl := SettingsGuiObj.Add("DropDownList", "w210 x+10 yp-2 vQA" idx " AltSubmit Choose" chooseIdx, translatedActionsList)
+        ddl.OnEvent("Change", (Ctrl, *) => CheckDropdownSelection(Ctrl, 1, translatedActionsList))
     }
     SettingsGuiObj.Add("Text", "h5", "") ; Spazio morbido
     
@@ -168,18 +157,18 @@ ShowSettings(*) {
     SettingsGuiObj.Add("Text", "w290 y+15 h1 0x10") ; linea separatrice
     
     SettingsGuiObj.SetFont("s10 bold")
-    btnSave := SettingsGuiObj.Add("Button", "w140 h35 x35 y+10 Default", "✔️ Salva e Applica")
+    btnSave := SettingsGuiObj.Add("Button", "w140 h35 x35 y+10 Default", Tr("SaveApply"))
     btnSave.OnEvent("Click", SaveSettings)
     
     SettingsGuiObj.SetFont("s9 norm")
-    btnReset := SettingsGuiObj.Add("Button", "w100 h35 x+10 yp", "🔄 Reset")
+    btnReset := SettingsGuiObj.Add("Button", "w100 h35 x+10 yp", Tr("Reset"))
     btnReset.OnEvent("Click", ResetSettings)
     
     SettingsGuiObj.Show("AutoSize Center")
 }
 
-CheckDropdownSelection(Ctrl, defaultIdx) {
-    if InStr(Ctrl.Text, "───")
+CheckDropdownSelection(Ctrl, defaultIdx, listArray) {
+    if InStr(listArray[Ctrl.Value], "───")
         Ctrl.Choose(defaultIdx)
 }
 
@@ -214,7 +203,7 @@ ApplyMascotSize() {
 
 SaveSettings(*) {
     Global SettingsGuiObj, SettingBtnColor, SettingTextColor, SettingMultiSelect, SettingEditMode, MascotGui
-    Global SettingPlaySound, SettingAutoHide, SettingHotkey
+    Global SettingPlaySound, SettingAutoHide, SettingHotkey, SettingLang
     Global SettingFloatingActions, SettingQuickActions
     saved := SettingsGuiObj.Submit(false)
     SettingMultiSelect := saved.Multi
@@ -239,6 +228,12 @@ SaveSettings(*) {
             try Hotkey(SettingHotkey, ToggleMascot, "On")
         }
     }
+    if (saved.HasProp("SettingsLang") && saved.SettingsLang != SettingLang) {
+        SettingLang := saved.SettingsLang
+        IniWrite(SettingLang, IniFile, "Settings", "Language")
+        SettingsGuiObj.Destroy()
+        SettingsGuiObj := 0
+    }
     
     if (saved.Startup) {
         if (!FileExist(A_Startup "\FoxPath.lnk"))
@@ -248,18 +243,20 @@ SaveSettings(*) {
             try FileDelete(A_Startup "\FoxPath.lnk")
     }
     
-    priAct := saved.PrimaryAction
+    priAct := GetBaseActionName(saved.PrimaryAction)
     if (priAct = "Nessuno" || InStr(priAct, "---"))
         priAct := "Copia Percorso Normale"
     SettingFloatingActions := [priAct]
     
     SettingQuickActions := []
-    for qa in [saved.QA1, saved.QA2, saved.QA3, saved.QA4, saved.QA5] {
+    for qaIdx in [saved.QA1, saved.QA2, saved.QA3, saved.QA4, saved.QA5] {
+        qa := GetBaseActionName(qaIdx)
         if (qa != "Nessuno" && !InStr(qa, "---"))
             SettingQuickActions.Push(qa)
     }
         
-    SettingsGuiObj.Hide()
+    if (SettingsGuiObj)
+        SettingsGuiObj.Hide()
     SaveSettingsToIni()
     if (MascotGui) {
         CloseMascot()
@@ -328,4 +325,21 @@ ChooseColor(EditCtrl, DefaultColor) {
         ARGB := 0xFF000000 | ((RGB_New & 0xFF) << 16) | (RGB_New & 0xFF00) | ((RGB_New >> 16) & 0xFF)
         EditCtrl.Value := Format("0x{:08X}", ARGB)
     }
+}
+
+GetBaseActionName(idx) {
+    static actions := [
+        "Nessuno",
+        "📋 ─── LIBRERIA COPIA E FORMATTAZIONE ───",
+        "Copia Percorso Normale", "Copia come File Reali", "Copia tra Virgolette", "Copia come Link Markdown",
+        "🖥️ ─── LIBRERIA PROGRAMMI E SISTEMA ───",
+        "Apri in VS Code", "Apri in PowerShell", "Rinomina Elemento", "Formatta JSON", "Minifica JSON",
+        "✍️ ─── LIBRERIA ESTRAZIONE E TESTO ───",
+        "Copia Contenuto (Solo Testo)", "Copia Contenuto (Mantiene Formattazione)", "Statistiche Testo", "Traduci in Google Translate", "Incolla Appunti Veloci",
+        "📸 ─── LIBRERIA IMMAGINI E GRAFICA ───",
+        "Estrai Testo (OCR)", "Converti in PNG", "Converti in JPG", "Converti in BMP", "Estrai Palette Colori",
+        "🛠️ ─── LIBRERIA UTILITÀ EXTRA ───",
+        "Touch (Aggiorna Data)", "Distruzione Sicura", "Crea Collegamento", "Super Zip (Unico)", "Super Zip (Separati)", "Svuota Cestino"
+    ]
+    return actions.Has(idx) ? actions[idx] : "Nessuno"
 }

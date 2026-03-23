@@ -78,7 +78,7 @@ GdipSavePng(bmp, path) {
 ; ═══════════════════════════════════════════════════════════════
 ;  DrawInfoPanel — renders the info panel to a PNG file
 ; ═══════════════════════════════════════════════════════════════
-DrawInfoPanel(hasPath, fileName, pathText, btnTitle := "Copia Percorso") {
+DrawInfoPanel(hasPath, fileName, pathText, btnTitle := "Copia Percorso Normale") {
     Global InfoTmpA, InfoTmpB, InfoTmpFlip, SettingWidth, SettingInfoHeight
     Global SettingBtnColor, SettingTextColor
 
@@ -101,16 +101,16 @@ DrawInfoPanel(hasPath, fileName, pathText, btnTitle := "Copia Percorso") {
     GdipText(g, "⚙", W-22, 6, 20, 20, 11.0, 0xFF94A3B8, false, 0)
 
     if (hasPath) {
-        GdipText(g, "RILEVATO", 21, 8, W-45, 18, 6.5, 0xFF4ADE80, true, 0)
+        GdipText(g, Tr("Detected"), 21, 8, W-45, 18, 6.5, 0xFF4ADE80, true, 0)
     } else {
-        GdipText(g, "NESSUNA SEL.", 21, 8, W-45, 18, 6.5, 0xFF6B7280, false, 0)
+        GdipText(g, Tr("NoSel"), 21, 8, W-45, 18, 6.5, 0xFF6B7280, false, 0)
     }
 
     txtColor := hasPath ? SettingTextColor : 0xFF6B7280
     if (hasPath) {
         GdipText(g, fileName, 4, 27, W-8, 20, 7.5, txtColor, true, 1)
     } else {
-        GdipText(g, "clicca su un file", 4, 27, W-8, 20, 7.0, 0xFF6B7280, false, 1)
+        GdipText(g, Tr("ClickFile"), 4, 27, W-8, 20, 7.0, 0xFF6B7280, false, 1)
     }
 
     if (hasPath && H > 100) {

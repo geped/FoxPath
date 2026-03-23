@@ -33,7 +33,7 @@ Global SettingPlaySound := 1
 Global SettingAutoHide := 0
 Global SettingHotkey := "^!f"
 Global IniFile := A_ScriptDir "\FoxPath.ini"
-Global SettingLang := "IT"
+Global SettingLang := "EN"
 Global SettingFirstRun := 1
 Global SettingFloatingActions := ["Copia Percorso Normale"]
 Global SettingQuickActions := ["Copia Percorso Normale", "Copia come File Reali", "Apri in VS Code"]
@@ -82,7 +82,7 @@ LoadSettings() {
         SettingPlaySound := Integer(IniRead(IniFile, "Settings", "PlaySound", 1))
         SettingAutoHide := Integer(IniRead(IniFile, "Settings", "AutoHide", 0))
         SettingHotkey := IniRead(IniFile, "Settings", "Hotkey", "^!f")
-        SettingLang := IniRead(IniFile, "Settings", "Language", "IT")
+        SettingLang := IniRead(IniFile, "Settings", "Language", "EN")
         ; Sovrascrive automaticamente se l'utente aveva ancora il vecchio default "+f"
         if (SettingHotkey == "+f") {
             SettingHotkey := "^!f"
@@ -240,7 +240,7 @@ ShowMascot() {
 
     ; Info panel rendered as GDI+ PNG
     primaryAct := SettingFloatingActions.Length > 0 ? SettingFloatingActions[1] : "Copia Percorso Normale"
-    infoPng := DrawInfoPanel(SelectedPath != "", _GetDisplayName(), _GetFormattedPath(), primaryAct)
+    infoPng := DrawInfoPanel(SelectedPath != "", _GetDisplayName(), _GetFormattedPath(), Tr(primaryAct))
     InfoPic := MascotGui.Add("Picture", "w" SettingWidth " h" SettingInfoHeight " x0 y+0", infoPng)
     InfoPic.OnEvent("Click", OnInfoClick)
     InfoPic.OnEvent("ContextMenu", ShowCopyMenu)
@@ -361,7 +361,7 @@ RefreshDisplay() {
     displayName := _GetDisplayName()
     pathText    := _GetFormattedPath()
     primaryAct  := SettingFloatingActions.Length > 0 ? SettingFloatingActions[1] : "Copia Percorso Normale"
-    infoPng     := DrawInfoPanel(hasPath, displayName, pathText, primaryAct)
+    infoPng     := DrawInfoPanel(hasPath, displayName, pathText, Tr(primaryAct))
     ; Usa *w *h per evitare che il controllo perda l'allineamento dei pixel logici rispetto all'immagine
     InfoPic.Value := "*w" SettingWidth " *h" SettingInfoHeight " " infoPng
 }
