@@ -1,6 +1,7 @@
 <div align="center">
   <img src="fox_saluto.png" width="160" alt="FoxPath Mascot">
-  <h1>🦊 FoxPath</h1>
+  <br>
+  <img src="FoxPath.png" width="400" alt="FoxPath Logo">
   <p><b>Your visual assistant and "Swiss Army Knife" for productivity on Windows</b></p>
   
   ![AutoHotkey v2](https://img.shields.io/badge/AutoHotkey-v2.0-blue.svg)
@@ -89,5 +90,5 @@ FoxPath is designed to perfectly fit your workflow. By clicking on the **Gear (�
 <br>
 
 <div align="center">
-  <i>Designed to boost your productivity, with style. 🦊✨</i>
+  <img src="FoxPath.png" width="300" alt="FoxPath Logo">
 </div>

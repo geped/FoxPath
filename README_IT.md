@@ -1,6 +1,7 @@
 <div align="center">
   <img src="fox_saluto.png" width="160" alt="FoxPath Mascot">
-  <h1>🦊 FoxPath</h1>
+  <br>
+  <img src="FoxPath.png" width="400" alt="FoxPath Logo">
   <p><b>Il tuo assistente visivo e "Coltellino Svizzero" per la produttività su Windows</b></p>
   
   ![AutoHotkey v2](https://img.shields.io/badge/AutoHotkey-v2.0-blue.svg)
@@ -76,3 +77,7 @@ FoxPath è progettato per adattarsi perfettamente al tuo workflow. Cliccando sul
 - **Menu Rapido:** Decidere l'azione primaria e quali sono le tue **5 Azioni Preferite** da mostrare in cima al menu contestuale per averle a portata di clic.
 
 *Tutte le tue preferenze vengono salvate in un file portatile e leggerissimo chiamato `FoxPath.ini`.*
+
+<div align="center">
+  <img src="FoxPath.png" width="300" alt="FoxPath Logo">
+</div>
