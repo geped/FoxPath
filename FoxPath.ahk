@@ -519,3 +519,4 @@ RenameFileAction() {
 #Include "FoxPath_Settings.ahk"
 #Include "FoxPath_Actions.ahk"
 #Include "FoxPath_GDI.ahk"
+#Include "FoxPath_Tutorial.ahk"
