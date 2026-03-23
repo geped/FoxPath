@@ -1,0 +1,16 @@
+# Eseguibili compilati (meglio usare le GitHub Releases per gli .exe)
+*.exe
+*.bin
+
+# Impostazioni locali e preferenze dell'utente
+FoxPath.ini
+
+# File temporanei e di cache di sistema
+*.log
+*.tmp
+Thumbs.db
+
+# File di configurazione editor e archivi
+.vscode/
+*.ahk.bak
+*.zip
