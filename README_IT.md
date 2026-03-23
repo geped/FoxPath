@@ -1,7 +1,5 @@
 <div align="center">
-  <img src="fox_saluto.png" width="160" alt="FoxPath Mascot">
-  <br>
-  <img src="FoxPath.png" width="400" alt="FoxPath Logo">
+  <img src="FoxPath.png" width="150" alt="FoxPath Logo">
   <p><b>Il tuo assistente visivo e "Coltellino Svizzero" per la produttività su Windows</b></p>
   
   ![AutoHotkey v2](https://img.shields.io/badge/AutoHotkey-v2.0-blue.svg)
@@ -12,6 +10,8 @@
 </div>
 
 ---
+
+<img src="fox_saluto.png" width="150" align="right" alt="FoxPath Mascot">
 
 **FoxPath** è un assistente "sempre in primo piano" basato su **AutoHotkey v2**. Nato originariamente per recuperare e formattare rapidamente i percorsi dei file, si è evoluto in un potente **"Coltellino Svizzero"** intelligente. Il tutto è accompagnato da una simpatica mascotte interattiva (la nostra Volpe!) che reagisce dinamicamente a ciò che fai.
 
@@ -79,5 +79,5 @@ FoxPath è progettato per adattarsi perfettamente al tuo workflow. Cliccando sul
 *Tutte le tue preferenze vengono salvate in un file portatile e leggerissimo chiamato `FoxPath.ini`.*
 
 <div align="center">
-  <img src="FoxPath.png" width="300" alt="FoxPath Logo">
+  <img src="FoxPath.png" width="70" alt="FoxPath Logo">
 </div>

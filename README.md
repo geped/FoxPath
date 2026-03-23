@@ -1,7 +1,5 @@
 <div align="center">
-  <img src="fox_saluto.png" width="160" alt="FoxPath Mascot">
-  <br>
-  <img src="FoxPath.png" width="400" alt="FoxPath Logo">
+  <img src="FoxPath.png" width="150" alt="FoxPath Logo">
   <p><b>Your visual assistant and "Swiss Army Knife" for productivity on Windows</b></p>
   
   ![AutoHotkey v2](https://img.shields.io/badge/AutoHotkey-v2.0-blue.svg)
@@ -12,6 +10,8 @@
 </div>
 
 ---
+
+<img src="fox_saluto.png" width="150" align="right" alt="FoxPath Mascot">
 
 **FoxPath** is an "always-on-top" assistant based on **AutoHotkey v2**. Originally created to quickly retrieve and format file paths, it has evolved into a powerful, intelligent **"Swiss Army Knife"**. Everything is accompanied by a cute interactive mascot (our Fox!) that reacts dynamically to what you do.
 
@@ -90,5 +90,5 @@ FoxPath is designed to perfectly fit your workflow. By clicking on the **Gear (â
 <br>
 
 <div align="center">
-  <img src="FoxPath.png" width="300" alt="FoxPath Logo">
+  <img src="FoxPath.png" width="70" alt="FoxPath Logo">
 </div>

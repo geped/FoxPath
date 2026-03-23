@@ -1,7 +1,5 @@
 <div align="center">
-  <img src="fox_saluto.png" width="160" alt="Mascota FoxPath">
-  <br>
-  <img src="FoxPath.png" width="400" alt="FoxPath Logo">
+  <img src="FoxPath.png" width="150" alt="FoxPath Logo">
   <p><b>Tu asistente visual y "Navaja Suiza" para la productividad en Windows</b></p>
   
   ![AutoHotkey v2](https://img.shields.io/badge/AutoHotkey-v2.0-blue.svg)
@@ -12,6 +10,8 @@
 </div>
 
 ---
+
+<img src="fox_saluto.png" width="150" align="right" alt="Mascota FoxPath">
 
 **FoxPath** es un asistente "siempre visible" basado en **AutoHotkey v2**. Creado originalmente para recuperar y formatear rápidamente las rutas de los archivos, ha evolucionado hasta convertirse en una potente e inteligente **"Navaja Suiza"**. Todo ello acompañado de una simpática mascota interactiva (¡nuestro Zorro!) que reacciona dinámicamente a lo que haces.
 
@@ -79,5 +79,5 @@ FoxPath está diseñado para adaptarse perfectamente a tu flujo de trabajo. Haci
 *Todas tus preferencias se guardan en un archivo portátil y ligerísimo llamado `FoxPath.ini`.*
 
 <div align="center">
-  <img src="FoxPath.png" width="300" alt="FoxPath Logo">
+  <img src="FoxPath.png" width="70" alt="FoxPath Logo">
 </div>
