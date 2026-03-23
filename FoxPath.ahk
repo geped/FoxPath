@@ -4,7 +4,7 @@
 ; --- DIRETTIVE COMPILATORE (Utili per ridurre falsi positivi Antivirus) ---
 ;@Ahk2Exe-SetDescription FoxPath - Assistente Visivo e Tool di Produttività
 ;@Ahk2Exe-SetVersion 2.1.0.0
-;@Ahk2Exe-SetCopyright © 2026 Pedro Sanchez. Tutti i diritti riservati.
+;@Ahk2Exe-SetCopyright Copyright (c) 2026
 ;@Ahk2Exe-SetOrigFilename FoxPath.exe
 
 ListLines 0
@@ -33,6 +33,7 @@ Global SettingPlaySound := 1
 Global SettingAutoHide := 0
 Global SettingHotkey := "^!f"
 Global IniFile := A_ScriptDir "\FoxPath.ini"
+Global SettingLang := "IT"
 Global SettingFirstRun := 1
 Global SettingFloatingActions := ["Copia Percorso Normale"]
 Global SettingQuickActions := ["Copia Percorso Normale", "Copia come File Reali", "Apri in VS Code"]
@@ -49,6 +50,9 @@ Global ImgSaluto   := A_Temp "\fox_saluto.png"
 Global ImgAttesa   := A_Temp "\fox_attesa.png"
 Global ImgConferma := A_Temp "\fox_conferma.png"
 
+#Include "FoxPath_Lang.ahk"
+InitLang()
+
 LoadSettings()
 
 try Hotkey(SettingHotkey, ToggleMascot)
@@ -64,7 +68,7 @@ if (SettingFirstRun) {
 LoadSettings() {
     Global SettingTransparency, SettingWidth, SettingInfoHeight
     Global SettingBtnColor, SettingTextColor, SettingMultiSelect, SettingEditMode
-    Global SettingPlaySound, SettingAutoHide, SettingHotkey, SettingFirstRun
+    Global SettingPlaySound, SettingAutoHide, SettingHotkey, SettingLang, SettingFirstRun
     Global IniFile
 
     try {
@@ -78,6 +82,7 @@ LoadSettings() {
         SettingPlaySound := Integer(IniRead(IniFile, "Settings", "PlaySound", 1))
         SettingAutoHide := Integer(IniRead(IniFile, "Settings", "AutoHide", 0))
         SettingHotkey := IniRead(IniFile, "Settings", "Hotkey", "^!f")
+        SettingLang := IniRead(IniFile, "Settings", "Language", "IT")
         ; Sovrascrive automaticamente se l'utente aveva ancora il vecchio default "+f"
         if (SettingHotkey == "+f") {
             SettingHotkey := "^!f"
@@ -514,4 +519,3 @@ RenameFileAction() {
 #Include "FoxPath_Settings.ahk"
 #Include "FoxPath_Actions.ahk"
 #Include "FoxPath_GDI.ahk"
-#Include "FoxPath_Tutorial.ahk"
