@@ -1,5 +1,6 @@
 # Eseguibili compilati (meglio usare le GitHub Releases per gli .exe)
 *.exe
+!FoxPath.exe
 *.bin
 
 # Impostazioni locali e preferenze dell'utente
