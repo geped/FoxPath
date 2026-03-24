@@ -90,6 +90,8 @@ FoxPath está diseñado para adaptarse perfectamente a tu flujo de trabajo. Haci
 - **¿El Zorro parece "aplastado" o la imagen está deformada?** 
   En los Ajustes (⚙️), marca *"Desbloquear Redimensionamiento Manual"* y ensancha ligeramente la ventana: esto forzará el cálculo de las proporciones óptimas. Luego haz clic en *Guardar*.
 - **¿El antivirus bloquea el ejecutable?**
-  El software creado en AutoHotkey suele estar sujeto a falsos positivos. Si has compilado FoxPath, añade la carpeta a las Exclusiones de Windows Defender.
+  El software creado en AutoHotkey interactúa con las ventanas y el portapapeles, comportamientos que a veces se marcan como sospechosos. Añade el archivo a las **Excepciones/Exclusiones** de tu antivirus de forma segura.
+- **¿Windows SmartScreen impide el inicio ("Aplicación no reconocida")?**
+  Como FoxPath es una aplicación de código abierto nueva y sin una firma digital de pago, Windows la bloquea por precaución. Haz clic en **"Más información"** y luego en **"Ejecutar de todas formas"**.
 
 <br>

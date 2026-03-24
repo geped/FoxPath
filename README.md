@@ -90,6 +90,8 @@ FoxPath is designed to perfectly adapt to your workflow. By clicking on the **Ge
 - **The Fox looks "squished" or the image is distorted?** 
   In the Settings (⚙️), check *"Unlock Manual Resize"* and slightly stretch the window by dragging its borders: this will force the calculation of optimal proportions. Then click *Save*.
 - **Antivirus blocking the executable?**
-  Software created in AutoHotkey is often subject to false positives due to its clipboard access. If you compiled FoxPath, add the folder to Windows Defender Exclusions.
+  Software created in AutoHotkey interacts with windows and the clipboard, which is sometimes flagged as suspicious. Add the file to your Antivirus **Exceptions/Exclusions** safely.
+- **Windows SmartScreen prevents startup ("Unrecognized app")?**
+  Since FoxPath is a new open-source app without an expensive digital signature, Windows blocks it as a precaution. Click on **"More info"** and then **"Run anyway"**.
 
 <br>

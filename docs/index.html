@@ -8,16 +8,75 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* --- Miglioramenti Grafici Stile Notion & Effetti Visivi --- */
+        :root {
+            --notion-bg: #ffffff;
+            --notion-text: #37352f;
+            --notion-border: #ededed;
+            --notion-hover: #f1f1ef;
+            --notion-shadow: rgba(15, 15, 15, 0.1) 0px 4px 12px;
+        }
+        body.dark-mode {
+            --notion-bg: #191919;
+            --notion-text: #ffffff;
+            --notion-border: #2f2f2f;
+            --notion-hover: #2c2c2c;
+            --notion-shadow: rgba(0, 0, 0, 0.5) 0px 4px 12px;
+        }
+        .logo { display: flex; align-items: center; gap: 10px; cursor: pointer; }
+        .logo img { width: 36px; height: auto; transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); border-radius: 8px; }
+        .logo:hover img { transform: rotate(-15deg) scale(1.15); }
+        
+        .lang-selector select {
+            background: transparent; color: inherit; border: 1px solid var(--notion-border);
+            border-radius: 6px; padding: 4px 8px; font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 600;
+            cursor: pointer; transition: all 0.2s; outline: none;
+        }
+        .lang-selector select:hover { background: var(--notion-hover); }
+        
+        .card { transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s; }
+        .card:hover { transform: translateY(-4px); box-shadow: var(--notion-shadow); border-color: #4ADE80; }
+        .btn { transition: all 0.2s ease; }
+        .btn:hover { transform: scale(1.05); filter: brightness(1.1); box-shadow: 0 4px 12px rgba(74, 222, 128, 0.3); }
+        .btn:active { transform: scale(0.95); }
+        
+        .hover-effect { position: relative; text-decoration: none; transition: color 0.2s; }
+        .hover-effect::after {
+            content: ''; position: absolute; width: 100%; transform: scaleX(0); height: 2px; bottom: -4px; left: 0;
+            background-color: #4ADE80; transform-origin: bottom right; transition: transform 0.25s ease-out;
+        }
+        .hover-effect:hover::after { transform: scaleX(1); transform-origin: bottom left; }
+        .copyright { font-size: 0.85rem; color: #6B7280; margin-top: 10px; font-family: 'Inter', sans-serif; }
+        
+        /* --- Responsività Smartphone --- */
+        @media (max-width: 768px) {
+            .nav-right { gap: 10px; }
+            .status-badge { display: none; }
+            .footer-content { flex-direction: column; gap: 20px; text-align: center; }
+            .footer-right { justify-content: center; gap: 20px; width: 100%; }
+        }
+    </style>
 </head>
 <body class="dark-mode">
     <header>
         <div class="container">
             <nav>
-                <div class="logo">FOXPATH</div>
+                <div class="logo">
+                    <img src="images/fox_saluto.png" alt="FoxPath Logo">
+                    FOXPATH
+                </div>
                 <div class="nav-right">
                     <button id="theme-toggle" aria-label="Toggle theme">
                         <span class="theme-icon"></span>
                     </button>
+                    <div class="lang-selector">
+                        <select onchange="if(this.value !== '#') window.location.href=this.value" aria-label="Cambia Lingua">
+                            <option value="#" selected>🇮🇹 IT</option>
+                            <option value="#">🇬🇧 EN</option>
+                            <option value="#">🇪🇸 ES</option>
+                        </select>
+                    </div>
                     <span class="status-badge">v2.1 RELEASED</span>
                 </div>
             </nav>
@@ -143,11 +202,12 @@
             <div class="footer-left">
                 <p class="mono">ALL SYSTEMS OPERATIONAL</p>
                 <p class="credits">Creato per incrementare la tua produttività, con stile.</p>
+                <p class="copyright">&copy; 2026 Pedro Sanchez. Tutti i diritti riservati.</p>
             </div>
             <div class="footer-right">
-                <a href="#" class="mono">GITHUB</a>
-                <a href="#" class="mono">DOCS</a>
-                <a href="#" class="mono">LICENSE</a>
+                <a href="https://github.com/geped/FoxPath" target="_blank" class="mono hover-effect">GITHUB</a>
+                <a href="https://github.com/geped/FoxPath#readme" target="_blank" class="mono hover-effect">DOCS</a>
+                <a href="https://github.com/geped/FoxPath/blob/main/LICENSE.md" target="_blank" class="mono hover-effect">LICENSE</a>
             </div>
         </div>
     </footer>
