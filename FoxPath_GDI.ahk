@@ -93,28 +93,33 @@ DrawInfoPanel(hasPath, fileName, pathText, btnTitle := "Copia Percorso Normale")
     GdipFillRoundRect(g, brBg, 0.0, 0.0, W + 0.0, H + 0.0, 10.0)
     GdipDelBrush(brBg)
 
-    dotColor := hasPath ? 0xFF22C55E : 0xFF4B5563
-    brDot := GdipSolidBrush(dotColor)
-    GdipFillEllipse(g, brDot, 10.0, 13.0, 7.0, 7.0)
-    GdipDelBrush(brDot)
-
-    GdipText(g, "⚙", W-22, 6, 20, 20, 11.0, 0xFF94A3B8, false, 0)
-
-    if (hasPath) {
-        GdipText(g, Tr("Detected"), 21, 8, W-45, 18, 6.5, 0xFF4ADE80, true, 0)
-    } else {
-        GdipText(g, Tr("NoSel"), 21, 8, W-45, 18, 6.5, 0xFF6B7280, false, 0)
-    }
-
+    ; --- Riga 1: Nome File (Sinistra) ---
     txtColor := hasPath ? SettingTextColor : 0xFF6B7280
     if (hasPath) {
-        GdipText(g, fileName, 4, 27, W-8, 20, 7.5, txtColor, true, 1)
+        GdipText(g, fileName, 10, 6, W-75, 20, 7.5, txtColor, true, 0)
     } else {
-        GdipText(g, Tr("ClickFile"), 4, 27, W-8, 20, 7.0, 0xFF6B7280, false, 1)
+        GdipText(g, Tr("ClickFile"), 10, 6, W-75, 20, 7.0, 0xFF6B7280, false, 0)
     }
 
+    ; --- Riga 1: Pulsanti (Destra) - Box di altezza 24px per allineamento verticale perfetto ---
+    GdipText(g, "</>", W-60, 4, 32, 24, 8.5, 0xFF94A3B8, true, 1)
+    GdipText(g, "⚙", W-28, 4, 24, 24, 11.0, 0xFF94A3B8, false, 1)
+
+    ; --- Riga 2: Pallino e Stato (Sotto il nome file) ---
+    dotColor := hasPath ? 0xFF22C55E : 0xFF4B5563
+    brDot := GdipSolidBrush(dotColor)
+    GdipFillEllipse(g, brDot, 10.0, 31.0, 7.0, 7.0)
+    GdipDelBrush(brDot)
+
+    if (hasPath) {
+        GdipText(g, Tr("Detected"), 21, 26, W-25, 18, 6.5, 0xFF4ADE80, true, 0)
+    } else {
+        GdipText(g, Tr("NoSel"), 21, 26, W-25, 18, 6.5, 0xFF6B7280, false, 0)
+    }
+
+    ; --- Riga 3: Percorso Esteso ---
     if (hasPath && H > 100) {
-        GdipText(g, pathText, 4, 49, W-8, H-98, 6.0, 0xFF94A3B8, false, 1)
+        GdipText(g, pathText, 10, 48, W-20, H-95, 6.0, 0xFF94A3B8, false, 0)
     }
 
     brSep := GdipSolidBrush(0x22FFFFFF)

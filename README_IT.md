@@ -40,6 +40,13 @@
 - **Git & Terminali:** Apri i percorsi direttamente in **VS Code** o PowerShell. Esegui comandi Git (Pull, Add, Commit) istantanei sulle tue repository.
 - **Generatore Snippet:** Crea boilerplate istantanei (HTML base, `.gitignore`, template Markdown) o collegamenti diretti pronti all'uso.
 
+### 🛠️ Strumenti Sviluppatore (DevTools)
+Cliccando sull'icona `</>` avrai accesso a una potente suite nativa per programmatori, sempre a portata di mano:
+- **Codificatori e Convertitori:** Base64 (Testo), Archiviatore Gzip e JSON ⇄ YAML.
+- **Generatori Sicuri:** Hash in tempo reale (MD5, SHA-256), UUID v4, e Generatore di Password personalizzate.
+- **Sviluppo:** Convertitore di Timestamp Epoch e un comodo Tester nativo per Espressioni Regolari (Regex).
+- **Grafica e Media:** Renderizzazione file Markdown in anteprima reale, Compressore Immagini JPG e Simulatore di Daltonismo.
+
 ### 📦 Gestione File Avanzata (Super Tools)
 - **Super Zip:** Comprimi decine di file in un singolo archivio, oppure in pacchetti `.zip` separati simultaneamente.
 - **Utility di Sicurezza e Privacy:** Distruggi file in modo irrecuperabile (Shredder), camuffa data/ora (Time Stomping) o rinomina in blocco.

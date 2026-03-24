@@ -23,7 +23,7 @@ Global GdipToken    := 0
 
 ; Impostazioni
 Global SettingTransparency := 204
-Global SettingWidth := 110
+Global SettingWidth := 130
 Global SettingInfoHeight := 122
 Global SettingBtnColor := 0xFFD35400
 Global SettingTextColor := 0xFFF1F5F9
@@ -73,7 +73,9 @@ LoadSettings() {
 
     try {
         SettingTransparency := Integer(IniRead(IniFile, "Settings", "Transparency", 204))
-        SettingWidth := Integer(IniRead(IniFile, "Settings", "Width", 110))
+        SettingWidth := Integer(IniRead(IniFile, "Settings", "Width", 130))
+        if (SettingWidth < 130)
+            SettingWidth := 130
         SettingInfoHeight := Integer(IniRead(IniFile, "Settings", "InfoHeight", 122))
         SettingBtnColor := Integer(IniRead(IniFile, "Settings", "BtnColor", "0xFFD35400"))
         SettingTextColor := Integer(IniRead(IniFile, "Settings", "TextColor", "0xFFF1F5F9"))
@@ -225,7 +227,7 @@ ToggleMascot(ThisHotkey := "") {
 ShowMascot() {
     Global MascotGui, MascotPic, InfoPic, SettingWidth, SettingInfoHeight, SettingTransparency, SettingEditMode, FoxRatio
 
-    resizeOpt := SettingEditMode ? "+Resize +MinSize100x150" : ""
+    resizeOpt := SettingEditMode ? "+Resize +MinSize130x150" : ""
     MascotGui := Gui("-Caption +AlwaysOnTop +ToolWindow +E0x08000000 " resizeOpt)
     MascotGui.BackColor := "White"
     MascotGui.MarginX := 0
@@ -311,15 +313,24 @@ OnInfoClick(Ctrl, *) {
     WinGetPos(&cX, &cY, &cW, &cH, Ctrl.Hwnd)
     relX := mX - cX
     relY := mY - cY
-    ; Se il clic avviene nell'angolo in alto a destra (30x30 px), apri impostazioni
-    if (relX >= cW - 30 && relY <= 30) {
-        ShowSettings()
-    } else {
-        if (SettingFloatingActions.Length > 0)
-            ExecuteAction(SettingFloatingActions[1])
-        else
-            CopyAction()
+    ; Clic sulle icone in alto a destra
+    if (relY <= 30) {
+        if (relX >= cW - 30) {
+            ShowSettings()
+            return
+        } else if (relX >= cW - 62 && relX < cW - 30) {
+            global DevLang, SettingLang
+            if IsSet(SettingLang)
+                DevLang := SettingLang
+            ShowDevTools()
+            return
+        }
     }
+    
+    if (SettingFloatingActions.Length > 0)
+        ExecuteAction(SettingFloatingActions[1])
+    else
+        CopyAction()
 }
 
 ; ─────────────────────────────────────────────
@@ -520,3 +531,4 @@ RenameFileAction() {
 #Include "FoxPath_Actions.ahk"
 #Include "FoxPath_GDI.ahk"
 #Include "FoxPath_Tutorial.ahk"
+#Include "DevTools.ahk"

@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FoxPath | Assistente Visivo AHK</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body class="dark-mode">
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">FOXPATH</div>
+                <div class="nav-right">
+                    <button id="theme-toggle" aria-label="Toggle theme">
+                        <span class="theme-icon"></span>
+                    </button>
+                    <span class="status-badge">v2.1 RELEASED</span>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="hero">
+            <h1>L'assistente visivo per i tuoi percorsi Windows.</h1>
+            <p class="subtitle">Recupera, formatta e gestisci file e cartelle con una simpatica mascotte interattiva. Progettato per la produttività, con stile.</p>
+            <div class="cta-group">
+                <a href="../FoxPath.ahk" class="btn btn-primary" download>Scarica FoxPath</a>
+                <span class="mono">ahk_v2_ready</span>
+            </div>
+        </section>
+
+        <section class="mascot-showcase">
+            <h2>Stati della Mascotte</h2>
+            <div class="mascot-grid">
+                <div class="mascot-item card">
+                    <div class="context-tag mono">STARTUP</div>
+                    <img src="images/fox_saluto.png" alt="Fox Saluto">
+                    <p class="context-desc">La Volpe ti accoglie istantaneamente ogni volta che la evochi con la scorciatoia globale.</p>
+                </div>
+                <div class="mascot-item card">
+                    <div class="context-tag mono">WAITING</div>
+                    <img src="images/fox_attesa.png" alt="Fox Attesa">
+                    <p class="context-desc">Sempre vigile, in attesa di rilevare una nuova selezione su Esplora Risorse o Desktop.</p>
+                </div>
+                <div class="mascot-item card">
+                    <div class="context-tag mono">SUCCESS</div>
+                    <img src="images/fox_conferma.png" alt="Fox Conferma">
+                    <p class="context-desc">Feedback visivo immediato non appena il percorso viene elaborato e copiato.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="features">
+            <h2>Funzionalità Principali</h2>
+            <div class="features-grid">
+                <div class="feature-card card">
+                    <div class="feature-status">CORE</div>
+                    <h3>Rilevamento Intelligente</h3>
+                    <p>Legge in automatico il file o la cartella selezionata su Esplora File o Desktop per offrirti solo le opzioni adatte al contesto.</p>
+                </div>
+                <div class="feature-card card">
+                    <div class="feature-status" style="color: #4ADE80;">NEW</div>
+                    <h3>DevTools Integrati &lt;/&gt;</h3>
+                    <p>Una suite nativa a portata di clic: codifica Base64, Hash MD5/SHA, Tester Regex, Convertitore Timestamp e formattazione JSON.</p>
+                </div>
+                <div class="feature-card card">
+                    <div class="feature-status">MEDIA</div>
+                    <h3>Immagini e Colori</h3>
+                    <p>Color Picker visivo per estrarre le 5 tinte predominanti dalle foto e un convertitore di formato ultra-rapido (PNG/JPG/BMP).</p>
+                </div>
+                <div class="feature-card card">
+                    <div class="feature-status">TEXT</div>
+                    <h3>Estrazione Testo & OCR</h3>
+                    <p>Estrai testo e tabelle da Word/Excel senza aprirli, o usa il motore per estrapolare stringhe da intere immagini.</p>
+                </div>
+                <div class="feature-card card">
+                    <div class="feature-status">POWER</div>
+                    <h3>Super Tools</h3>
+                    <p>Comprimi file in archivi multipli, camuffa data e ora, rinomina elementi in blocco e distruggi file in modo irrecuperabile (Shredder).</p>
+                </div>
+                <div class="feature-card card">
+                    <div class="feature-status">CODE</div>
+                    <h3>Codice e Snippet</h3>
+                    <p>Apri al volo in VS Code o Terminale, gestisci repo Git e genera boilerplate pronti all'uso (HTML, Markdown, gitignore).</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="architecture">
+            <h2>Architettura & Sistema</h2>
+            <div class="card terminal">
+                <div class="terminal-header">
+                    <span class="dot red"></span>
+                    <span class="dot yellow"></span>
+                    <span class="dot green"></span>
+                    <span class="terminal-title">foxpath_config.ini</span>
+                </div>
+                <div class="terminal-content mono">
+                    <p><span class="comment">; Impostazioni salvate automaticamente</span></p>
+                    <p><span class="key">GlobalTransparency</span> = <span class="val">200</span></p>
+                    <p><span class="key">LockAspectRatio</span> = <span class="val">true</span></p>
+                    <p><span class="key">GlobalHotkey</span> = <span class="val">^!f</span></p>
+                    <p><span class="key">SoundEffects</span> = <span class="val">enabled</span></p>
+                </div>
+            </div>
+            <div class="description-text">
+                <p>FoxPath è scritto interamente in <strong>AutoHotkey v2</strong>. Utilizza GDI+ per il rendering delle immagini e un sistema di hooking per monitorare le finestre attive in tempo reale.</p>
+            </div>
+        </section>
+
+        <section class="how-to">
+            <h2>Come usarlo</h2>
+            <ol class="steps">
+                <li>
+                    <span class="step-num mono">01</span>
+                    <div class="step-content">
+                        <strong>Evoca la Volpe:</strong> Premi <code>Ctrl + Alt + F</code> in qualsiasi momento.
+                    </div>
+                </li>
+                <li>
+                    <span class="step-num mono">02</span>
+                    <div class="step-content">
+                        <strong>Seleziona un Elemento:</strong> Clicca su uno o più file sul Desktop o in Esplora Risorse.
+                    </div>
+                </li>
+                <li>
+                    <span class="step-num mono">03</span>
+                    <div class="step-content">
+                        <strong>Copia & Formatta:</strong> Usa il tasto sinistro per la copia standard o il destro per le opzioni avanzate.
+                    </div>
+                </li>
+            </ol>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container footer-content">
+            <div class="footer-left">
+                <p class="mono">ALL SYSTEMS OPERATIONAL</p>
+                <p class="credits">Creato per incrementare la tua produttività, con stile.</p>
+            </div>
+            <div class="footer-right">
+                <a href="#" class="mono">GITHUB</a>
+                <a href="#" class="mono">DOCS</a>
+                <a href="#" class="mono">LICENSE</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
